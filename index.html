@@ -26,11 +26,11 @@
       background-color: #210830;
     }
 
-    .containerViolet p{
+    .containerViolet p {
       color: white;
     }
 
-    .containerViolet span{
+    .containerViolet span {
       color: white;
     }
 
@@ -61,7 +61,7 @@
       margin-top: 10px;
     }
 
-    ::placeholder{
+    ::placeholder {
       color: rgb(241, 241, 241);
     }
 
@@ -79,12 +79,20 @@
       font-weight: bold;
     }
 
-    .card-img{
+    .card-img {
       height: 50%;
     }
 
-    .card-number span{
-      font-size:22px;
+    .card-number span {
+      font-size: 22px;
+    }
+
+    #errorFieldName,
+    #errorFieldNumber,
+    #errorValidNumber,
+    #errorCount {
+      color: red;
+      display: none;
     }
 
     @media only screen and (max-width: 390px) {
@@ -111,9 +119,9 @@
         margin-top: 64px;
       }
 
-      .card2-content{
-       margin-left: 225px;
-       margin-top: 61px;
+      .card2-content {
+        margin-left: 225px;
+        margin-top: 61px;
       }
 
       .form {
@@ -142,11 +150,11 @@
         margin-bottom: 15px;
       }
 
-      .card-info{
+      .card-info {
         padding-left: 30px;
       }
 
-      
+
 
 
     }
@@ -158,18 +166,18 @@
   <div class="containerViolet">
     <div class="card card1 bg">
       <div class="card-img">
-          
+
       </div>
       <div class="card-info">
         <div class="card-number">
-          <span>0000 0000 0000 0000</span>
+          <span id="changeNumber">0000 0000 0000 0000</span>
         </div>
         <div class="card-date flex">
           <div>
             <p id="changeName">JANE APPLESEED</p>
           </div>
           <div style="padding-left: 70px;">
-            <p id="changeDate">00/00</p>
+            <p>00/00</p>
           </div>
 
         </div>
@@ -193,6 +201,8 @@
         <p>CARD NUMBER</p>
         <input type="text" id="number" class="form-control" placeholder="e.g 1234 5678 9123 0000">
         <p id="errorFieldNumber">This field is required</p>
+        <p id="errorValidNumber">Wrong format, numbers only</p>
+        <p id="errorCount">the card is not valid</p>
       </div>
       <div class="flex">
         <div class="box dateContainer ">
@@ -215,20 +225,46 @@
     </div>
 
 
-    
+
 
 
     <script>
 
-      function myFunction(){
+      function myFunction() {
         const name = document.getElementById("name").value;
-        document.getElementById("changeName").innerHTML = name;
+        const number = document.getElementById("number").value;
 
-        if(name == ""){
 
+        if (name == "") {
+          document.getElementById("errorFieldName").style.display = "block";
+          document.getElementById("name").style.border = "1px solid red";
+          document.getElementById("changeName").innerHTML = "JANE APPLESEED";
+        } else {
+          document.getElementById("changeName").innerHTML = name;
+          document.getElementById("errorFieldName").style.display = "none";
+          document.getElementById("name").style.border = "";
+        }
+
+        if (number == "") {
+          document.getElementById("errorFieldNumber").style.display = "block";
+          document.getElementById("number").style.border = "1px solid red";
+          document.getElementById("changeNumber").innerHTML = "0000 0000 0000 0000";
+          document.getElementById("errorValidNumber").style.display = "none";
+          document.getElementById("errorCount").style.display = "none";
+        } else if (isNaN(number)) {
+          document.getElementById("errorValidNumber").style.display = "block";
+          document.getElementById("number").style.border = "1px solid red";
+          document.getElementById("changeNumber").innerHTML = "0000 0000 0000 0000";
+          document.getElementById("errorFieldNumber").style.display = "none";
+          document.getElementById("errorCount").style.display = "none";
+        } else {
+          document.getElementById("changeNumber").innerHTML = number;
+          document.getElementById("errorFieldNumber").style.display = "none";
+          document.getElementById("errorValidNumber").style.display = "";
+          document.getElementById("number").style.border = "";
         }
       }
-        
+
 
     </script>
 
